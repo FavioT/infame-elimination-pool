@@ -1,0 +1,87 @@
+<div
+  class="card note-card"
+  [style.background-color]="note().color"
+  [class.is-editing]="editing()"
+  (click)="openEdit($event)">
+
+  <!-- Pin button -->
+  <button
+    class="btn-small pin-btn"
+    [class.is-pinned]="note().pinned"
+    [title]="note().pinned ? 'Desfijar nota' : 'Fijar nota'"
+    (click)="onPin($event)">
+    <span class="material-icons">push_pin</span>
+  </button>
+
+  <div class="card-body">
+
+    <!-- View mode -->
+    @if (!editing()) {
+      @if (note().title) {
+        <h4 class="card-title note-title">{{ note().title }}</h4>
+      }
+      @if (note().body) {
+        <p class="card-text note-body">{{ note().body }}</p>
+      }
+    }
+
+    <!-- Edit mode -->
+    @if (editing()) {
+      <div class="form-group">
+        <input
+          class="input-block edit-title"
+          placeholder="Título"
+          [value]="editTitle()"
+          (input)="editTitle.set($any($event.target).value)"
+          (click)="$event.stopPropagation()"
+        />
+      </div>
+      <div class="form-group">
+        <textarea
+          class="input-block edit-body"
+          placeholder="Tomar una nota..."
+          [value]="editBody()"
+          (input)="editBody.set($any($event.target).value)"
+          (click)="$event.stopPropagation()"
+        ></textarea>
+      </div>
+      <div class="edit-footer" (click)="$event.stopPropagation()">
+        <button class="btn-small btn-secondary-outline" (click)="saveEdit()">Cerrar</button>
+      </div>
+    }
+
+  </div>
+
+  <!-- Actions toolbar (visible on hover / editing) -->
+  <div class="card-footer card-actions" (click)="$event.stopPropagation()">
+
+    <!-- Color picker -->
+    <div class="color-picker-wrap">
+      <button class="btn-small action-btn" title="Color de fondo" (click)="toggleColorPicker($event)">
+        <span class="material-icons">palette</span>
+      </button>
+      @if (showColorPicker()) {
+        <div class="color-palette">
+          @for (c of colors; track c.value) {
+            <button
+              class="color-dot"
+              [style.background-color]="c.value"
+              [title]="c.name"
+              [class.is-active]="note().color === c.value"
+              (click)="pickColor($event, c.value)">
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <button class="btn-small action-btn" title="Archivar nota" (click)="onArchive($event)">
+      <span class="material-icons">archive</span>
+    </button>
+
+    <button class="btn-small action-btn action-btn--danger" title="Eliminar nota" (click)="onDelete($event)">
+      <span class="material-icons">delete</span>
+    </button>
+
+  </div>
+</div>

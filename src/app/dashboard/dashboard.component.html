@@ -1,0 +1,56 @@
+<div class="dashboard container">
+
+  <!-- Create note input -->
+  <div class="create-area">
+    <app-create-note (noteCreated)="onNoteCreated($event)" />
+  </div>
+
+  <!-- Pinned notes -->
+  @if (pinned().length > 0) {
+    <section class="section">
+      <p class="section-label">FIJADAS</p>
+      <div class="notes-grid">
+        @for (note of pinned(); track note.id) {
+          <app-note-card
+            [note]="note"
+            (pinToggled)="onPinToggled($event)"
+            (archived)="onArchived($event)"
+            (deleted)="onDeleted($event)"
+            (colorChanged)="onColorChanged($event)"
+            (saved)="onSaved($event)"
+          />
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Other notes -->
+  @if (others().length > 0) {
+    <section class="section">
+      @if (pinned().length > 0) {
+        <p class="section-label">OTRAS</p>
+      }
+      <div class="notes-grid">
+        @for (note of others(); track note.id) {
+          <app-note-card
+            [note]="note"
+            (pinToggled)="onPinToggled($event)"
+            (archived)="onArchived($event)"
+            (deleted)="onDeleted($event)"
+            (colorChanged)="onColorChanged($event)"
+            (saved)="onSaved($event)"
+          />
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Empty state -->
+  @if (pinned().length === 0 && others().length === 0) {
+    <div class="empty-state">
+      <span class="material-icons empty-icon">lightbulb</span>
+      <p class="empty-text">Las notas que agregues aparecen aquí</p>
+    </div>
+  }
+
+</div>

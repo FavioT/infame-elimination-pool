@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+// PaperCSS handles most resets and base styles via the CDN link.
+// These overrides keep the app layout intact.
+
+html,
+body {
+  height: 100%;
+}
+
+// Prevent widows on main body that break fixed-nav layout
+body.paper {
+  padding-top: 0 !important;
+}
+
+// Scoped: remove default search Cancel button (WebKit)
+input[type='search']::-webkit-search-cancel-button {
+  display: none;
+}
+
+// Let Material Icons inherit the page font stack from PaperCSS
+.material-icons {
+  font-family: 'Material Icons' !important;
+  font-style: normal;
+}
+

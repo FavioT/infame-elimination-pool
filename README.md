@@ -1,52 +1,59 @@
-# InfameEliminationPool
+# Infame Elimination Pool — Keep Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.23.
+A Google Keep-style notes dashboard built with **Angular 19** and styled with **PaperCSS** — the less formal, hand-drawn CSS framework.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- Create, edit, archive and delete notes
+- Pin notes to keep them at the top
+- Color-code notes with 11 preset colors (via a color picker)
+- Live search bar that filters notes by title or body
+- Masonry grid layout (1–5 columns, responsive)
+- Notes persisted in `localStorage` (survives page reloads)
+- SSR-safe (Angular Universal / `@angular/ssr`)
+- Responsive navbar with PaperCSS hamburger menu (no JavaScript)
 
-```bash
-ng serve
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Angular 19 (standalone components, signals) |
+| Styling | [PaperCSS 1.9.2](https://www.getpapercss.com/) + component SCSS |
+| Icons | Google Material Icons |
+| State | Angular Signals + `localStorage` |
+| Rendering | Angular SSR (`@angular/ssr`) |
+
+## Project structure
+
+```
+src/app/
+  models/
+    note.model.ts           # Note interface + color palette
+  services/
+    notes.service.ts        # Reactive service (signals, localStorage)
+  components/
+    create-note/            # Expandable "take a note" input card
+    note-card/              # Individual note card with inline editing
+  dashboard/                # Main view: masonry grid + sections
+  app.component.*           # Shell: PaperCSS fixed navbar + search
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting started
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # dev server → http://localhost:4200
+npm run build      # production build → dist/
+npm test           # unit tests with Karma
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Notes behavior
 
-```bash
-ng generate --help
-```
+- Clicking a card opens inline editing; clicking outside saves and closes it.
+- Pinned notes appear in a separate **FIJADAS** section above the rest.
+- Archived notes are hidden from the main view (no archive view yet).
+- All notes are auto-saved to `localStorage` immediately on every change.
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
 
 ```bash
 ng e2e

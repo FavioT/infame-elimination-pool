@@ -1,0 +1,307 @@
+// ── Card shell ────────────────────────────────────────────────
+
+.create-wrap {
+  transition: background-color 0.25s;
+}
+
+// ── Collapsed ─────────────────────────────────────────────────
+
+.collapsed {
+  display: flex;
+  align-items: center;
+  cursor: text;
+}
+
+.placeholder-text {
+  flex: 1;
+  color: #999;
+  user-select: none;
+  font-size: 0.9375rem;
+}
+
+.collapsed-icons {
+  display: flex;
+  gap: 4px;
+}
+
+// ── Title row ─────────────────────────────────────────────────
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.create-title {
+  flex: 1;
+  font-weight: 500;
+  margin-bottom: 0 !important;
+}
+
+.pin-btn {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  min-width: unset;
+  line-height: 1;
+
+  .material-icons {
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+
+  &.is-pinned .material-icons {
+    transform: rotate(45deg);
+  }
+}
+
+// ── Body ──────────────────────────────────────────────────────
+
+.create-body {
+  min-height: 72px;
+  resize: vertical;
+}
+
+// ── Footer toolbar ────────────────────────────────────────────
+
+.create-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 4px;
+}
+
+// ── Action buttons ────────────────────────────────────────────
+
+.action-btn {
+  padding: 2px 6px;
+  min-width: unset;
+  line-height: 1;
+
+  .material-icons {
+    font-size: 18px;
+  }
+}
+
+// ── Color picker ──────────────────────────────────────────────
+
+.color-picker-wrap {
+  position: relative;
+}
+
+.color-palette {
+  position: absolute;
+  bottom: 44px;
+  left: 0;
+  background: #fafafa;
+  border: 2px solid #bbb;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 200px;
+  z-index: 200;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.color-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.1s;
+
+  &:first-child {
+    border-color: #bbb;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+    border-color: #333 !important;
+  }
+
+  &.is-active {
+    border-color: #333 !important;
+  }
+}
+
+
+// ── Collapsed ─────────────────────────────────────────────────
+
+.collapsed {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: text;
+}
+
+.placeholder {
+  flex: 1;
+  font-size: 0.9375rem;
+  color: #80868b;
+  user-select: none;
+}
+
+.collapsed-icons {
+  display: flex;
+  gap: 2px;
+}
+
+// ── Expanded ──────────────────────────────────────────────────
+
+.expanded {
+  padding: 8px 12px 8px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+}
+
+.title-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #202124;
+  outline: none;
+  padding: 4px 0;
+  font-family: inherit;
+
+  &::placeholder {
+    color: #80868b;
+  }
+}
+
+.pin-btn {
+  &.is-pinned .material-icons {
+    transform: rotate(45deg);
+    color: #202124;
+  }
+}
+
+.body-input {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #3c4043;
+  outline: none;
+  resize: none;
+  min-height: 80px;
+  line-height: 1.5;
+  padding: 4px 0 8px;
+  box-sizing: border-box;
+  font-family: inherit;
+
+  &::placeholder {
+    color: #80868b;
+  }
+}
+
+// ── Toolbar ───────────────────────────────────────────────────
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 2px;
+}
+
+.color-picker-wrap {
+  position: relative;
+}
+
+.color-palette {
+  position: absolute;
+  bottom: 42px;
+  left: 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 6px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 230px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 200;
+}
+
+.color-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.1s;
+  flex-shrink: 0;
+
+  &:first-child {
+    border-color: #e0e0e0;
+  }
+
+  &:hover {
+    transform: scale(1.15);
+    border-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  &.is-active {
+    border-color: #202124 !important;
+  }
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #3c4043;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-family: inherit;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+}
+
+// ── Icon button ───────────────────────────────────────────────
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f6368;
+  transition: background 0.15s, color 0.15s;
+
+  .material-icons {
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+
+  &:hover {
+    background: rgba(95, 99, 104, 0.157);
+    color: #202124;
+  }
+}

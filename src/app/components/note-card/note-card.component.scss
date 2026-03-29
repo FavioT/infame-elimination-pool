@@ -1,0 +1,349 @@
+// ── Card shell ────────────────────────────────────────────────
+
+.note-card {
+  position: relative;
+  break-inside: avoid;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+
+  // PaperCSS card has its own border / shadow; we just tweak on hover
+  &:hover,
+  &.is-editing {
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+
+    .pin-btn {
+      opacity: 1;
+    }
+
+    .card-actions {
+      opacity: 1;
+    }
+  }
+
+  // Ensure background color covers the whole card including PaperCSS::after pseudo
+  &::after {
+    background-color: inherit !important;
+  }
+}
+
+// ── Card body ─────────────────────────────────────────────────
+
+.card-body {
+  padding: 32px 12px 4px; // top space for the pin button
+}
+
+// ── Pin button ────────────────────────────────────────────────
+
+.pin-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 2px 6px;
+  min-width: unset;
+  line-height: 1;
+
+  .material-icons {
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+
+  &.is-pinned {
+    opacity: 1;
+
+    .material-icons {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// ── Note text ─────────────────────────────────────────────────
+
+.note-title {
+  margin: 0 0 6px;
+  font-size: 0.9375rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.note-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.875rem;
+}
+
+// ── Edit inputs ───────────────────────────────────────────────
+
+.edit-title {
+  font-weight: 500;
+}
+
+.edit-body {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.form-group {
+  margin-bottom: 6px;
+}
+
+.edit-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+// ── Actions toolbar (card footer) ─────────────────────────────
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.action-btn {
+  padding: 2px 6px;
+  min-width: unset;
+  line-height: 1;
+
+  .material-icons {
+    font-size: 18px;
+  }
+
+  &.action-btn--danger {
+    color: #c0392b;
+    border-color: #c0392b;
+  }
+}
+
+// ── Color picker ──────────────────────────────────────────────
+
+.color-picker-wrap {
+  position: relative;
+}
+
+.color-palette {
+  position: absolute;
+  bottom: 42px;
+  left: 0;
+  background: #fafafa;
+  border: 2px solid #bbb;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 200px;
+  z-index: 200;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.color-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.1s;
+
+  &:first-child {
+    border-color: #bbb;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+    border-color: #333 !important;
+  }
+
+  &.is-active {
+    border-color: #333 !important;
+  }
+}
+
+
+// ── Pin button ─────────────────────────────────────────────────
+
+.pin-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
+
+  &.is-pinned {
+    opacity: 1;
+
+    .material-icons {
+      transform: rotate(45deg);
+      color: #202124;
+    }
+  }
+}
+
+// ── View mode ─────────────────────────────────────────────────
+
+.note-title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 28px 8px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.note-body {
+  font-size: 0.875rem;
+  color: #3c4043;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+// ── Edit mode ─────────────────────────────────────────────────
+
+.edit-title {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #202124;
+  outline: none;
+  padding: 0 28px 6px 0;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.edit-body {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #3c4043;
+  outline: none;
+  resize: none;
+  min-height: 80px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.edit-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.close-edit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #3c4043;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-family: inherit;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+}
+
+// ── Actions toolbar ───────────────────────────────────────────
+
+.card-actions {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+// ── Color picker ──────────────────────────────────────────────
+
+.color-picker-wrap {
+  position: relative;
+}
+
+.color-palette {
+  position: absolute;
+  bottom: 38px;
+  left: 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 6px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 230px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 200;
+}
+
+.color-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.1s;
+  flex-shrink: 0;
+
+  &:first-child {
+    border-color: #e0e0e0;
+  }
+
+  &:hover {
+    transform: scale(1.15);
+    border-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  &.is-active {
+    border-color: #202124 !important;
+  }
+}
+
+// ── Icon button ───────────────────────────────────────────────
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f6368;
+  transition: background 0.15s, color 0.15s;
+
+  .material-icons {
+    font-size: 18px;
+    transition: transform 0.2s;
+  }
+
+  &:hover {
+    background: rgba(95, 99, 104, 0.157);
+    color: #202124;
+  }
+
+  &.icon-btn--danger:hover {
+    background: rgba(234, 67, 53, 0.1);
+    color: #c5221f;
+  }
+}

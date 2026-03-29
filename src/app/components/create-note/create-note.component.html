@@ -1,0 +1,88 @@
+<div class="card create-wrap" [style.background-color]="color()">
+
+  <!-- Collapsed state -->
+  @if (!expanded()) {
+    <div class="card-body collapsed" (click)="expand()">
+      <span class="placeholder-text">Tomar una nota...</span>
+      <div class="collapsed-icons">
+        <button class="btn-small action-btn" title="Lista nueva" (click)="$event.stopPropagation()">
+          <span class="material-icons">check_box</span>
+        </button>
+        <button class="btn-small action-btn" title="Nota con dibujo" (click)="$event.stopPropagation()">
+          <span class="material-icons">brush</span>
+        </button>
+        <button class="btn-small action-btn" title="Nota con imagen" (click)="$event.stopPropagation()">
+          <span class="material-icons">image</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Expanded state -->
+  @if (expanded()) {
+    <div class="card-body" (click)="$event.stopPropagation()">
+
+      <!-- Title row -->
+      <div class="title-row">
+        <input
+          class="input-block create-title"
+          placeholder="Título"
+          [value]="title()"
+          (input)="title.set($any($event.target).value)"
+        />
+        <button
+          class="btn-small pin-btn"
+          [class.is-pinned]="pinned()"
+          [title]="pinned() ? 'Desfijar nota' : 'Fijar nota'"
+          (click)="togglePin()">
+          <span class="material-icons">push_pin</span>
+        </button>
+      </div>
+
+      <!-- Body textarea -->
+      <div class="form-group">
+        <textarea
+          class="input-block create-body"
+          placeholder="Tomar una nota..."
+          [value]="body()"
+          (input)="body.set($any($event.target).value)"
+          rows="3"
+        ></textarea>
+      </div>
+
+    </div>
+
+    <!-- Footer toolbar -->
+    <div class="card-footer create-toolbar" (click)="$event.stopPropagation()">
+
+      <div class="toolbar-left">
+        <!-- Color picker -->
+        <div class="color-picker-wrap">
+          <button
+            class="btn-small action-btn"
+            title="Color de fondo"
+            (click)="toggleColorPicker()">
+            <span class="material-icons">palette</span>
+          </button>
+          @if (showColorPicker()) {
+            <div class="color-palette">
+              @for (c of colors; track c.value) {
+                <button
+                  class="color-dot"
+                  [style.background-color]="c.value"
+                  [title]="c.name"
+                  [class.is-active]="color() === c.value"
+                  (click)="setColor(c.value)">
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <button class="btn-small btn-secondary-outline" (click)="close()">Cerrar</button>
+
+    </div>
+  }
+
+</div>
