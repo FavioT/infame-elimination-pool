@@ -18,12 +18,13 @@ export class CreateNoteComponent {
 
   expanded        = signal(false);
   title           = signal('');
-  body            = signal('');
+  items           = signal<string[]>(['']);
   color           = signal('#ffffff');
   pinned          = signal(false);
   showColorPicker = signal(false);
 
-  readonly colors = NOTE_COLORS;
+  readonly colors    = NOTE_COLORS;
+  readonly MAX_ITEMS = 20;
 
   constructor(private elRef: ElementRef) {}
 
@@ -51,14 +52,44 @@ export class CreateNoteComponent {
     this.showColorPicker.update(v => !v);
   }
 
+  updateItem(index: number, value: string): void {
+    const arr = [...this.items()];
+    arr[index] = value;
+    this.items.set(arr);
+  }
+
+  onItemKeydown(event: KeyboardEvent, index: number): void {
+    const arr = this.items();
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (arr.length < this.MAX_ITEMS) {
+        const newArr = [...arr.slice(0, index + 1), '', ...arr.slice(index + 1)];
+        this.items.set(newArr);
+        setTimeout(() => {
+          const inputs = (this.elRef.nativeElement as HTMLElement).querySelectorAll<HTMLInputElement>('.list-create .list-item-input');
+          inputs[index + 1]?.focus();
+        });
+      }
+    } else if (event.key === 'Backspace' && arr[index] === '' && arr.length > 1) {
+      event.preventDefault();
+      const newArr = [...arr];
+      newArr.splice(index, 1);
+      this.items.set(newArr);
+      setTimeout(() => {
+        const inputs = (this.elRef.nativeElement as HTMLElement).querySelectorAll<HTMLInputElement>('.list-create .list-item-input');
+        inputs[Math.max(0, index - 1)]?.focus();
+      });
+    }
+  }
+
   close(): void {
     const t = this.title().trim();
-    const b = this.body().trim();
+    const b = this.items().filter(i => i.trim()).join('\n');
     if (t || b) {
       this.noteCreated.emit({ title: t, body: b, color: this.color(), pinned: this.pinned() });
     }
     this.title.set('');
-    this.body.set('');
+    this.items.set(['']);
     this.color.set('#ffffff');
     this.pinned.set(false);
     this.expanded.set(false);

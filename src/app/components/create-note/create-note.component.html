@@ -3,7 +3,7 @@
   <!-- Collapsed state -->
   @if (!expanded()) {
     <div class="card-body collapsed" (click)="expand()">
-      <span class="placeholder-text">Tomar una nota...</span>
+      <span class="placeholder-text">Crear listado...</span>
       <div class="collapsed-icons">
         <button class="btn-small action-btn" title="Lista nueva" (click)="$event.stopPropagation()">
           <span class="material-icons">check_box</span>
@@ -26,7 +26,7 @@
       <div class="title-row">
         <input
           class="input-block create-title"
-          placeholder="Título"
+          placeholder="Nombre"
           [value]="title()"
           (input)="title.set($any($event.target).value)"
         />
@@ -39,15 +39,26 @@
         </button>
       </div>
 
-      <!-- Body textarea -->
+      <!-- List items -->
       <div class="form-group">
-        <textarea
-          class="input-block create-body"
-          placeholder="Tomar una nota..."
-          [value]="body()"
-          (input)="body.set($any($event.target).value)"
-          rows="3"
-        ></textarea>
+        <ul class="list-create">
+          @for (item of items(); track $index; let i = $index) {
+            <li class="list-item">
+              <span class="list-bullet material-icons">radio_button_unchecked</span>
+              <input
+                class="input-block list-item-input"
+                [placeholder]="'Punto ' + (i + 1)"
+                [value]="item"
+                (input)="updateItem(i, $any($event.target).value)"
+                (keydown)="onItemKeydown($event, i)"
+                (click)="$event.stopPropagation()"
+              />
+            </li>
+          }
+        </ul>
+        @if (items().length >= MAX_ITEMS) {
+          <span class="list-limit-msg">Máximo {{ MAX_ITEMS }} puntos alcanzado</span>
+        }
       </div>
 
     </div>

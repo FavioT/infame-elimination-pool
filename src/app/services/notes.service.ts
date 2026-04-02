@@ -52,7 +52,7 @@ export class NotesService {
       {
         id: crypto.randomUUID(),
         title: 'Bienvenido a Keep',
-        body: 'Haz clic en "Tomar una nota..." para crear tu primera nota. Puedes fijar, archivar y darle color a cada tarjeta.',
+        body: 'Haz clic en "Crear listado..." para crear tu primera nota. Puedes fijar, archivar y darle color a cada tarjeta.',
         color: '#aecbfa',
         pinned: true,
         archived: false,

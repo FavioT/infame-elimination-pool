@@ -21,7 +21,13 @@
         <h4 class="card-title note-title">{{ note().title }}</h4>
       }
       @if (note().body) {
-        <p class="card-text note-body">{{ note().body }}</p>
+        <ul class="note-body-list">
+          @for (item of note().body.split('\n'); track $index) {
+            @if (item.trim()) {
+              <li class="note-body-item">{{ item }}</li>
+            }
+          }
+        </ul>
       }
     }
 
@@ -30,20 +36,31 @@
       <div class="form-group">
         <input
           class="input-block edit-title"
-          placeholder="Título"
+          placeholder="Nombre"
           [value]="editTitle()"
           (input)="editTitle.set($any($event.target).value)"
           (click)="$event.stopPropagation()"
         />
       </div>
       <div class="form-group">
-        <textarea
-          class="input-block edit-body"
-          placeholder="Tomar una nota..."
-          [value]="editBody()"
-          (input)="editBody.set($any($event.target).value)"
-          (click)="$event.stopPropagation()"
-        ></textarea>
+        <ul class="list-edit">
+          @for (item of editItems(); track $index; let i = $index) {
+            <li class="list-item">
+              <span class="list-bullet material-icons">radio_button_unchecked</span>
+              <input
+                class="input-block list-item-input"
+                [placeholder]="'Punto ' + (i + 1)"
+                [value]="item"
+                (input)="updateEditItem(i, $any($event.target).value)"
+                (keydown)="onEditItemKeydown($event, i)"
+                (click)="$event.stopPropagation()"
+              />
+            </li>
+          }
+        </ul>
+        @if (editItems().length >= MAX_ITEMS) {
+          <span class="list-limit-msg">Máximo {{ MAX_ITEMS }} puntos alcanzado</span>
+        }
       </div>
       <div class="edit-footer" (click)="$event.stopPropagation()">
         <button class="btn-small btn-secondary-outline" (click)="saveEdit()">Cerrar</button>

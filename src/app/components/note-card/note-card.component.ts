@@ -26,9 +26,10 @@ export class NoteCardComponent {
   editing          = signal(false);
   showColorPicker  = signal(false);
   editTitle        = signal('');
-  editBody         = signal('');
+  editItems        = signal<string[]>(['']);
 
-  readonly colors = NOTE_COLORS;
+  readonly colors    = NOTE_COLORS;
+  readonly MAX_ITEMS = 20;
 
   constructor(private elRef: ElementRef) {}
 
@@ -44,13 +45,45 @@ export class NoteCardComponent {
     if (this.editing()) return;
     event.stopPropagation();
     this.editTitle.set(this.note().title);
-    this.editBody.set(this.note().body);
+    const lines = this.note().body ? this.note().body.split('\n') : [''];
+    this.editItems.set(lines.length ? lines : ['']);
     this.editing.set(true);
   }
 
   saveEdit(): void {
-    this.saved.emit({ id: this.note().id, title: this.editTitle(), body: this.editBody() });
+    const body = this.editItems().filter(i => i.trim()).join('\n');
+    this.saved.emit({ id: this.note().id, title: this.editTitle(), body });
     this.editing.set(false);
+  }
+
+  updateEditItem(index: number, value: string): void {
+    const arr = [...this.editItems()];
+    arr[index] = value;
+    this.editItems.set(arr);
+  }
+
+  onEditItemKeydown(event: KeyboardEvent, index: number): void {
+    const arr = this.editItems();
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (arr.length < this.MAX_ITEMS) {
+        const newArr = [...arr.slice(0, index + 1), '', ...arr.slice(index + 1)];
+        this.editItems.set(newArr);
+        setTimeout(() => {
+          const inputs = (this.elRef.nativeElement as HTMLElement).querySelectorAll<HTMLInputElement>('.list-edit .list-item-input');
+          inputs[index + 1]?.focus();
+        });
+      }
+    } else if (event.key === 'Backspace' && arr[index] === '' && arr.length > 1) {
+      event.preventDefault();
+      const newArr = [...arr];
+      newArr.splice(index, 1);
+      this.editItems.set(newArr);
+      setTimeout(() => {
+        const inputs = (this.elRef.nativeElement as HTMLElement).querySelectorAll<HTMLInputElement>('.list-edit .list-item-input');
+        inputs[Math.max(0, index - 1)]?.focus();
+      });
+    }
   }
 
   toggleColorPicker(event: MouseEvent): void {
