@@ -36,6 +36,11 @@
     <div class="collapsible-body">
       <ul class="inline">
         <li>
+          <button class="btn-small" title="Alternar modo oscuro" (click)="toggleDark()">
+            <span class="material-symbols-outlined">{{ darkMode() ? 'light_mode' : 'dark_mode' }}</span>
+          </button>
+        </li>
+        <li>
           <button class="btn-small" title="Actualizar">
             <span class="material-symbols-outlined">refresh</span>
           </button>
