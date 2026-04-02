@@ -5,13 +5,10 @@
   break-inside: avoid;
   margin-bottom: 16px;
   cursor: pointer;
-  transition: box-shadow 0.15s ease;
 
-  // PaperCSS card has its own border / shadow; we just tweak on hover
+  // Reveal pin + actions on hover/editing — PaperCSS handles shadow/transform
   &:hover,
   &.is-editing {
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
-
     .pin-btn {
       opacity: 1;
     }
@@ -21,7 +18,7 @@
     }
   }
 
-  // Ensure background color covers the whole card including PaperCSS::after pseudo
+  // Ensure background color covers the whole card including PaperCSS ::after pseudo
   &::after {
     background-color: inherit !important;
   }
@@ -45,7 +42,7 @@
   min-width: unset;
   line-height: 1;
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 16px;
     transition: transform 0.2s;
   }
@@ -53,7 +50,7 @@
   &.is-pinned {
     opacity: 1;
 
-    .material-icons {
+    .material-symbols-outlined {
       transform: rotate(45deg);
     }
   }
@@ -171,7 +168,7 @@
   min-width: unset;
   line-height: 1;
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 18px;
   }
 
@@ -238,7 +235,7 @@
   &.is-pinned {
     opacity: 1;
 
-    .material-icons {
+    .material-symbols-outlined {
       transform: rotate(45deg);
       color: #202124;
     }
@@ -430,7 +427,7 @@
   color: #5f6368;
   transition: background 0.15s, color 0.15s;
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 18px;
     transition: transform 0.2s;
   }

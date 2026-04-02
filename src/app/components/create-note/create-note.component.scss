@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   cursor: text;
+  padding: .5rem;
 }
 
 .placeholder-text {
@@ -46,12 +47,12 @@
   min-width: unset;
   line-height: 1;
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 16px;
     transition: transform 0.2s;
   }
 
-  &.is-pinned .material-icons {
+  &.is-pinned .material-symbols-outlined {
     transform: rotate(45deg);
   }
 }
@@ -110,7 +111,7 @@
   min-width: unset;
   line-height: 1;
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 18px;
   }
 }
@@ -209,7 +210,7 @@
 }
 
 .pin-btn {
-  &.is-pinned .material-icons {
+  &.is-pinned .material-symbols-outlined {
     transform: rotate(45deg);
     color: #202124;
   }
@@ -323,7 +324,7 @@
   color: #5f6368;
   transition: background 0.15s, color 0.15s;
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 20px;
     transition: transform 0.2s;
   }

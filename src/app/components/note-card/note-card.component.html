@@ -10,7 +10,7 @@
     [class.is-pinned]="note().pinned"
     [title]="note().pinned ? 'Desfijar nota' : 'Fijar nota'"
     (click)="onPin($event)">
-    <span class="material-icons">push_pin</span>
+    <span class="material-symbols-outlined">push_pin</span>
   </button>
 
   <div class="card-body">
@@ -46,7 +46,7 @@
         <ul class="list-edit">
           @for (item of editItems(); track $index; let i = $index) {
             <li class="list-item">
-              <span class="list-bullet material-icons">radio_button_unchecked</span>
+              <span class="list-bullet material-symbols-outlined">radio_button_unchecked</span>
               <input
                 class="input-block list-item-input"
                 [placeholder]="'Punto ' + (i + 1)"
@@ -75,7 +75,7 @@
     <!-- Color picker -->
     <div class="color-picker-wrap">
       <button class="btn-small action-btn" title="Color de fondo" (click)="toggleColorPicker($event)">
-        <span class="material-icons">palette</span>
+        <span class="material-symbols-outlined">palette</span>
       </button>
       @if (showColorPicker()) {
         <div class="color-palette">
@@ -93,11 +93,11 @@
     </div>
 
     <button class="btn-small action-btn" title="Archivar nota" (click)="onArchive($event)">
-      <span class="material-icons">archive</span>
+      <span class="material-symbols-outlined">archive</span>
     </button>
 
     <button class="btn-small action-btn action-btn--danger" title="Eliminar nota" (click)="onDelete($event)">
-      <span class="material-icons">delete</span>
+      <span class="material-symbols-outlined">delete</span>
     </button>
 
   </div>

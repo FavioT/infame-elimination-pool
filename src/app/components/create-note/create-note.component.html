@@ -6,13 +6,13 @@
       <span class="placeholder-text">Crear listado...</span>
       <div class="collapsed-icons">
         <button class="btn-small action-btn" title="Lista nueva" (click)="$event.stopPropagation()">
-          <span class="material-icons">check_box</span>
+          <span class="material-symbols-outlined">check_box</span>
         </button>
         <button class="btn-small action-btn" title="Nota con dibujo" (click)="$event.stopPropagation()">
-          <span class="material-icons">brush</span>
+          <span class="material-symbols-outlined">brush</span>
         </button>
         <button class="btn-small action-btn" title="Nota con imagen" (click)="$event.stopPropagation()">
-          <span class="material-icons">image</span>
+          <span class="material-symbols-outlined">image</span>
         </button>
       </div>
     </div>
@@ -35,7 +35,7 @@
           [class.is-pinned]="pinned()"
           [title]="pinned() ? 'Desfijar nota' : 'Fijar nota'"
           (click)="togglePin()">
-          <span class="material-icons">push_pin</span>
+          <span class="material-symbols-outlined">push_pin</span>
         </button>
       </div>
 
@@ -44,7 +44,7 @@
         <ul class="list-create">
           @for (item of items(); track $index; let i = $index) {
             <li class="list-item">
-              <span class="list-bullet material-icons">radio_button_unchecked</span>
+              <span class="list-bullet material-symbols-outlined">radio_button_unchecked</span>
               <input
                 class="input-block list-item-input"
                 [placeholder]="'Punto ' + (i + 1)"
@@ -73,7 +73,7 @@
             class="btn-small action-btn"
             title="Color de fondo"
             (click)="toggleColorPicker()">
-            <span class="material-icons">palette</span>
+            <span class="material-symbols-outlined">palette</span>
           </button>
           @if (showColorPicker()) {
             <div class="color-palette">
